@@ -28,9 +28,7 @@ GLfloat		zrot;				// 摄像头旋转偏移量
 GLboolean	ROT = TRUE;			// 镜头旋转状态
 GLint		RandomShuffle = 1;	// 打乱/还原状态
 int			step[MAXSTEP][2];	// 存储打乱步骤用于还原
-int			step_count ;		// 打乱步数
-
-//GLUquadricObj *g_text;			
+int			step_count ;		// 打乱步数		
 
 GLfloat RX;						// /
 GLfloat RY;						// 摄像头平移偏移量
@@ -55,9 +53,6 @@ int InitGL(GLvoid)
 {
 	if (!LoadAllTextures()) return FALSE;
 	InitENstring();										// 初始化字符显示 Text.cpp
-	Init_model();										// 初始化魔方坐标 CubeRotate.cpp
-	step_count = 0;										// 初始化栈
-	step[step_count][0] = 0;
 
 	glEnable(GL_TEXTURE_2D);							// 启用2D纹理贴图
 	glShadeModel(GL_SMOOTH);							// 颜色光滑过渡
@@ -158,6 +153,7 @@ int DrawGLScene(GLvoid)
 	glLoadIdentity();										//重置视野位置
 	glTranslatef(0.0f, 0.0f, -12.0f);
 //
+	glBindTexture(GL_TEXTURE_2D, texture[1]);
 	selectFont(36, ANSI_CHARSET, "MS Gothic");
 	glColor3f(0.914f, 0.251f, 0.365f);
 	glRasterPos2f(-6.4f, 3.2f);
@@ -223,6 +219,8 @@ int DrawGLScene(GLvoid)
 	DrawCube(25, 0, 2, 2, 0,  0, 0);
 	DrawCube(26, 0, 1, 3, 0,  3, 0);
 	
+
+
 	if (ROT)
 	{
 		xrot += 0.40f;
@@ -448,12 +446,11 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 	SetFocus(hWnd);									// Sets Keyboard Focus To The Window
 	ReSizeGLScene(width, height);					// Set Up Our Perspective GL Screen
 
-
-	if (!InitGL())									// Initialize Our Newly Created GL Window
+	if (!InitGL())
 	{
-		KillGLWindow();								// Reset The Display
+		KillGLWindow();
 		MessageBox(NULL, "Initialization Failed.", "ERROR", MB_OK | MB_ICONEXCLAMATION);
-		return FALSE;								// Return FALSE
+		return FALSE;
 	}
 
 	return TRUE;									// Success
@@ -634,17 +631,15 @@ int WINAPI WinMain(
 		TEXT("题目：基于OpenGL的3D旋转魔方实现\n作者：李开希U201414093\n班级：集成1401\n\n按F1启动帮助\n按F2启动还原\n按F11在窗口全屏中切换\n按F4开启关闭旋转镜头\n按上下左右移动魔方\n使用WASD移动镜头角度"),
 		TEXT("Magic 3D Info"), MB_ICONINFORMATION | MB_OK);
 	
-
+	Init_model();									// 初始化魔方坐标 CubeRotate.cpp
 	if (!CreateGLWindow("3D MagicCube By 李开希", 1024, 768, 32, fullscreen))
 	{
 		return 0;									
 	}
-	
+
 	::SetTimer(hWnd, 2, 1500, TimerShuffle);		// 定时器 > 中速打乱
 
 	::SetTimer(hWnd, 3, 100, TimeRestore);			// 定时器 > 快速复原
-	
-	//::SetTimer(hWnd, 3, 5, RandomRotation);
 
 	while (!done)									
 	{
@@ -710,19 +705,16 @@ int WINAPI WinMain(
 			if (keys[VK_F11])								// 改变全屏/窗口显示
 			{
 				keys[VK_F11] = FALSE;
-				if (rotFace == -1)
+				KillGLWindow();
+				fullscreen = !fullscreen;
+				if (!CreateGLWindow("3D MagicCube By 李开希",
+					fullscreen?(::GetSystemMetrics(SM_CXSCREEN)):(1024), fullscreen?(::GetSystemMetrics(SM_CYSCREEN)):(768), 32, fullscreen))
 				{
-					KillGLWindow();
-					fullscreen = !fullscreen;
-					if (!CreateGLWindow("3D MagicCube By 李开希", 
-						::GetSystemMetrics(SM_CXSCREEN), ::GetSystemMetrics(SM_CYSCREEN), 32, fullscreen))
-					{
-						return 0;
-					}
-					Init_model();
-					::SetTimer(hWnd, 2, 1500, TimerShuffle);
-					::SetTimer(hWnd, 3, 100, TimeRestore);
+					return 0;
 				}
+				InitGL();
+				::SetTimer(hWnd, 2, 1500, TimerShuffle);
+				::SetTimer(hWnd, 3, 100, TimeRestore);
 			}
 		}
 		

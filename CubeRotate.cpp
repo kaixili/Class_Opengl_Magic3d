@@ -48,6 +48,9 @@ void Init_model()
 {
 	memcpy(Index, Static_Index, sizeof(Static_Index));
 	
+	step_count = 0;										// ≥ı ºªØ’ª
+	step[step_count][0] = 0;
+
 	int i;
 	for (i = 0; i<8; i++)
 	{
