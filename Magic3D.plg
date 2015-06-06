@@ -1,0 +1,41 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Madic2D - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\开希\AppData\Local\Temp\RSP3404.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Fr"Debug/" /Fp"Debug/Magic3D.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\软件课程设计\magic3d\CubeRotate.cpp"
+]
+Creating command line "cl.exe @"C:\Users\开希\AppData\Local\Temp\RSP3404.tmp"" 
+Creating temporary file "C:\Users\开希\AppData\Local\Temp\RSP3405.tmp" with contents
+[
+opengl32.lib glu32.lib glaux.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Magic3D.pdb" /debug /machine:I386 /out:"Debug/Magic3D.exe" /pdbtype:sept 
+".\Debug\CubeRotate.obj"
+".\Debug\Image.obj"
+".\Debug\Magic3D.obj"
+".\Debug\Text.obj"
+]
+Creating command line "link.exe @"C:\Users\开希\AppData\Local\Temp\RSP3405.tmp""
+<h3>Output Window</h3>
+Compiling...
+CubeRotate.cpp
+E:\软件课程设计\magic3d\CubeRotate.cpp(244) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\软件课程设计\magic3d\CubeRotate.cpp(245) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\软件课程设计\magic3d\CubeRotate.cpp(258) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\软件课程设计\magic3d\CubeRotate.cpp(259) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\软件课程设计\magic3d\CubeRotate.cpp(273) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+E:\软件课程设计\magic3d\CubeRotate.cpp(274) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Linking...
+
+
+
+<h3>Results</h3>
+Magic3D.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

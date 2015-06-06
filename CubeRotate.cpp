@@ -280,7 +280,7 @@ void Enable_Roatate(int surface, int direction, int angle)
 {
 	if (rotFace == -1)
 	{
-		PlaySound("data/Sound/click.wav", NULL, SND_ASYNC);
+		mciSendString("play data/Sound/click.wav","",0,NULL);
 		rotFace = surface;
 		rotDirection = direction;
 		rotAngle = angle;

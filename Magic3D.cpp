@@ -153,7 +153,8 @@ int DrawGLScene(GLvoid)
 	glLoadIdentity();										//重置视野位置
 	glTranslatef(0.0f, 0.0f, -12.0f);
 //
-	glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBindTexture(GL_TEXTURE_2D, texture[1]);				//关闭纹理的状态
+
 	selectFont(36, ANSI_CHARSET, "MS Gothic");
 	glColor3f(0.914f, 0.251f, 0.365f);
 	glRasterPos2f(-6.4f, 3.2f);
@@ -640,6 +641,8 @@ int WINAPI WinMain(
 	::SetTimer(hWnd, 2, 1500, TimerShuffle);		// 定时器 > 中速打乱
 
 	::SetTimer(hWnd, 3, 100, TimeRestore);			// 定时器 > 快速复原
+
+	PlaySound("Data/Sound/BackgroudMusic.wav", NULL, SND_LOOP|SND_ASYNC);
 
 	while (!done)									
 	{
