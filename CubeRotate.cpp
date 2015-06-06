@@ -72,186 +72,107 @@ void Init_model()
 		Cube[0].CubePoint[i].p[0] = CubePoint[i].p[0] - 2.0f;
 		Cube[0].CubePoint[i].p[1] = CubePoint[i].p[1] - 2.0f;
 		Cube[0].CubePoint[i].p[2] = CubePoint[i].p[2] + 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[1].CubePoint[i].p[0] = CubePoint[i].p[0] + 0.0f;
 		Cube[1].CubePoint[i].p[1] = CubePoint[i].p[1] - 2.0f;
 		Cube[1].CubePoint[i].p[2] = CubePoint[i].p[2] + 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[2].CubePoint[i].p[0] = CubePoint[i].p[0] + 2.0f;
 		Cube[2].CubePoint[i].p[1] = CubePoint[i].p[1] - 2.0f;
 		Cube[2].CubePoint[i].p[2] = CubePoint[i].p[2] + 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[3].CubePoint[i].p[0] = CubePoint[i].p[0] - 2.0f;
 		Cube[3].CubePoint[i].p[1] = CubePoint[i].p[1] + 0.0f;
 		Cube[3].CubePoint[i].p[2] = CubePoint[i].p[2] + 2.0f;
-	}
-	//
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[4].CubePoint[i].p[0] = CubePoint[i].p[0] + 0.0f;
 		Cube[4].CubePoint[i].p[1] = CubePoint[i].p[1] + 0.0f;
 		Cube[4].CubePoint[i].p[2] = CubePoint[i].p[2] + 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[5].CubePoint[i].p[0] = CubePoint[i].p[0] + 2.0f;
 		Cube[5].CubePoint[i].p[1] = CubePoint[i].p[1] + 0.0f;
 		Cube[5].CubePoint[i].p[2] = CubePoint[i].p[2] + 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[6].CubePoint[i].p[0] = CubePoint[i].p[0] - 2.0f;
 		Cube[6].CubePoint[i].p[1] = CubePoint[i].p[1] + 2.0f;
 		Cube[6].CubePoint[i].p[2] = CubePoint[i].p[2] + 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[7].CubePoint[i].p[0] = CubePoint[i].p[0] + 0.0f;
 		Cube[7].CubePoint[i].p[1] = CubePoint[i].p[1] + 2.0f;
 		Cube[7].CubePoint[i].p[2] = CubePoint[i].p[2] + 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[8].CubePoint[i].p[0] = CubePoint[i].p[0] + 2.0f;
 		Cube[8].CubePoint[i].p[1] = CubePoint[i].p[1] + 2.0f;
 		Cube[8].CubePoint[i].p[2] = CubePoint[i].p[2] + 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[9].CubePoint[i].p[0] = CubePoint[i].p[0] - 2.0f;
 		Cube[9].CubePoint[i].p[1] = CubePoint[i].p[1] - 2.0f;
 		Cube[9].CubePoint[i].p[2] = CubePoint[i].p[2] + 0.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[10].CubePoint[i].p[0] = CubePoint[i].p[0] + 0.0f;
 		Cube[10].CubePoint[i].p[1] = CubePoint[i].p[1] - 2.0f;
 		Cube[10].CubePoint[i].p[2] = CubePoint[i].p[2] + 0.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[11].CubePoint[i].p[0] = CubePoint[i].p[0] + 2.0f;
 		Cube[11].CubePoint[i].p[1] = CubePoint[i].p[1] - 2.0f;
 		Cube[11].CubePoint[i].p[2] = CubePoint[i].p[2] + 0.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[12].CubePoint[i].p[0] = CubePoint[i].p[0] - 2.0f;
 		Cube[12].CubePoint[i].p[1] = CubePoint[i].p[1] + 0.0f;
 		Cube[12].CubePoint[i].p[2] = CubePoint[i].p[2] + 0.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[13].CubePoint[i].p[0] = CubePoint[i].p[0] + 0.0f;
 		Cube[13].CubePoint[i].p[1] = CubePoint[i].p[1] + 0.0f;
 		Cube[13].CubePoint[i].p[2] = CubePoint[i].p[2] + 0.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[14].CubePoint[i].p[0] = CubePoint[i].p[0] + 2.0f;
 		Cube[14].CubePoint[i].p[1] = CubePoint[i].p[1] + 0.0f;
 		Cube[14].CubePoint[i].p[2] = CubePoint[i].p[2] + 0.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[15].CubePoint[i].p[0] = CubePoint[i].p[0] - 2.0f;
 		Cube[15].CubePoint[i].p[1] = CubePoint[i].p[1] + 2.0f;
 		Cube[15].CubePoint[i].p[2] = CubePoint[i].p[2] + 0.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[16].CubePoint[i].p[0] = CubePoint[i].p[0] + 0.0f;
 		Cube[16].CubePoint[i].p[1] = CubePoint[i].p[1] + 2.0f;
 		Cube[16].CubePoint[i].p[2] = CubePoint[i].p[2] + 0.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[17].CubePoint[i].p[0] = CubePoint[i].p[0] + 2.0f;
 		Cube[17].CubePoint[i].p[1] = CubePoint[i].p[1] + 2.0f;
 		Cube[17].CubePoint[i].p[2] = CubePoint[i].p[2] + 0.0f;
-	}
-	//
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[18].CubePoint[i].p[0] = CubePoint[i].p[0] - 2.0f;
 		Cube[18].CubePoint[i].p[1] = CubePoint[i].p[1] - 2.0f;
 		Cube[18].CubePoint[i].p[2] = CubePoint[i].p[2] - 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[19].CubePoint[i].p[0] = CubePoint[i].p[0] + 0.0f;
 		Cube[19].CubePoint[i].p[1] = CubePoint[i].p[1] - 2.0f;
 		Cube[19].CubePoint[i].p[2] = CubePoint[i].p[2] - 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[20].CubePoint[i].p[0] = CubePoint[i].p[0] + 2.0f;
 		Cube[20].CubePoint[i].p[1] = CubePoint[i].p[1] - 2.0f;
 		Cube[20].CubePoint[i].p[2] = CubePoint[i].p[2] - 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[21].CubePoint[i].p[0] = CubePoint[i].p[0] - 2.0f;
 		Cube[21].CubePoint[i].p[1] = CubePoint[i].p[1] + 0.0f;
 		Cube[21].CubePoint[i].p[2] = CubePoint[i].p[2] - 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[22].CubePoint[i].p[0] = CubePoint[i].p[0] + 0.0f;
 		Cube[22].CubePoint[i].p[1] = CubePoint[i].p[1] + 0.0f;
 		Cube[22].CubePoint[i].p[2] = CubePoint[i].p[2] - 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[23].CubePoint[i].p[0] = CubePoint[i].p[0] + 2.0f;
 		Cube[23].CubePoint[i].p[1] = CubePoint[i].p[1] + 0.0f;
 		Cube[23].CubePoint[i].p[2] = CubePoint[i].p[2] - 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[24].CubePoint[i].p[0] = CubePoint[i].p[0] - 2.0f;
 		Cube[24].CubePoint[i].p[1] = CubePoint[i].p[1] + 2.0f;
 		Cube[24].CubePoint[i].p[2] = CubePoint[i].p[2] - 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[25].CubePoint[i].p[0] = CubePoint[i].p[0] + 0.0f;
 		Cube[25].CubePoint[i].p[1] = CubePoint[i].p[1] + 2.0f;
 		Cube[25].CubePoint[i].p[2] = CubePoint[i].p[2] - 2.0f;
-	}
-
-	for (i = 0; i<8; i++)
-	{
+	
 		Cube[26].CubePoint[i].p[0] = CubePoint[i].p[0] + 2.0f;
 		Cube[26].CubePoint[i].p[1] = CubePoint[i].p[1] + 2.0f;
 		Cube[26].CubePoint[i].p[2] = CubePoint[i].p[2] - 2.0f;
@@ -399,7 +320,7 @@ void Update_Cube_index()
 }
 
 // Ðý×ªÄ§·½
-void Rotate(stCube *pCube, float angle, float x0, float y0, float z0)
+void Rotate(stCube *pCube, float angle, int x, int y, int z)
 {
 
 	int i;
@@ -407,7 +328,7 @@ void Rotate(stCube *pCube, float angle, float x0, float y0, float z0)
 
 	double cosa = cos(a), sina = sin(a);//Ðý×ª90¡ã0.0, 1.0
 
-	if (fabs(x0)>1e-2)
+	if (x)
 	{
 		for (i = 0; i<8; i++)
 		{
@@ -421,7 +342,7 @@ void Rotate(stCube *pCube, float angle, float x0, float y0, float z0)
 		}
 	}
 
-	if (fabs(y0)>1e-2)
+	if (y)
 	{
 		for (i = 0; i<8; i++)
 		{
@@ -436,7 +357,7 @@ void Rotate(stCube *pCube, float angle, float x0, float y0, float z0)
 		}
 	}
 
-	if (fabs(z0)>1e-2)
+	if (z)
 	{
 		for (i = 0; i<8; i++)
 		{
@@ -456,7 +377,7 @@ void Rotate_Z1()
 {
 	for (int i = 0; i<9; i++)
 	{
-		Rotate(&Cube[Z1[i]], rotAngle*rotDirect, 0.0, 0.0, 1.0);
+		Rotate(&Cube[Z1[i]], rotAngle*rotDirect, 0, 0, 1);
 	}
 
 	if (rotCount++ == CYCLE_COUNT)
@@ -474,7 +395,7 @@ void Rotate_X1()
 {
 	for (int i = 0; i<9; i++)
 	{
-		Rotate(&Cube[X1[i]], rotAngle*rotDirect, 1.0, 0.0, 0.0);
+		Rotate(&Cube[X1[i]], rotAngle*rotDirect, 1, 0, 0);
 	}
 
 	if (rotCount++ == CYCLE_COUNT)
@@ -492,7 +413,7 @@ void Rotate_Y1()
 {
 	for (int i = 0; i<9; i++)
 	{
-		Rotate(&Cube[Y1[i]], rotAngle*rotDirect, 0.0, 1.0, 0.0);
+		Rotate(&Cube[Y1[i]], rotAngle*rotDirect, 0, 1, 0);
 	}
 
 	if (rotCount++ == CYCLE_COUNT)
@@ -509,7 +430,7 @@ void Rotate_Z2()
 {
 	for (int i = 0; i<9; i++)
 	{
-		Rotate(&Cube[Z2[i]], rotAngle*rotDirect, 0.0, 0.0, 1.0);
+		Rotate(&Cube[Z2[i]], rotAngle*rotDirect, 0, 0, 1);
 	}
 
 	if (rotCount++ == CYCLE_COUNT)
@@ -527,7 +448,7 @@ void Rotate_X2()
 {
 	for (int i = 0; i<9; i++)
 	{
-		Rotate(&Cube[X2[i]], rotAngle*rotDirect, 1.0, 0.0, 0.0);
+		Rotate(&Cube[X2[i]], rotAngle*rotDirect, 1, 0, 0);
 	}
 
 	if (rotCount++ == CYCLE_COUNT)
@@ -544,7 +465,7 @@ void Rotate_Y2()
 {
 	for (int i = 0; i<9; i++)
 	{
-		Rotate(&Cube[Y2[i]], rotAngle*rotDirect, 0.0, 1.0, 0.0);
+		Rotate(&Cube[Y2[i]], rotAngle*rotDirect, 0, 1, 0);
 	}
 
 	if (rotCount++ == CYCLE_COUNT)
@@ -561,7 +482,7 @@ void Rotate_Z3()
 {
 	for (int i = 0; i<9; i++)
 	{
-		Rotate(&Cube[Z3[i]], rotAngle*rotDirect, 0.0, 0.0, 1.0);
+		Rotate(&Cube[Z3[i]], rotAngle*rotDirect, 0, 0, 1);
 	}
 
 	if (rotCount++ == CYCLE_COUNT)
@@ -579,7 +500,7 @@ void Rotate_X3()
 {
 	for (int i = 0; i<9; i++)
 	{
-		Rotate(&Cube[X3[i]], rotAngle*rotDirect, 1.0, 0.0, 0.0);
+		Rotate(&Cube[X3[i]], rotAngle*rotDirect, 1, 0, 0);
 	}
 
 	if (rotCount++ == CYCLE_COUNT)
@@ -596,7 +517,7 @@ void Rotate_Y3()
 {
 	for (int i = 0; i<9; i++)
 	{
-		Rotate(&Cube[Y3[i]], rotAngle*rotDirect, 0.0, 1.0, 0.0);
+		Rotate(&Cube[Y3[i]], rotAngle*rotDirect, 0, 1, 0);
 	}
 
 	if (rotCount++ == CYCLE_COUNT)

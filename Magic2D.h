@@ -16,7 +16,7 @@
 #define  PI  3.1415926f 
 #define  CYCLE_COUNT 90
 
-#define KEY_S 83
+#define KEY_S 83			// 用于检查ASDW按键
 #define KEY_A 65
 #define KEY_D 68
 #define KEY_W 87
@@ -51,6 +51,7 @@
 #define  Y3_ROTATE_R -8
 #define  Z3_ROTATE_L 9
 #define  Z3_ROTATE_R -9
+
 
 //坐标
 typedef struct 
@@ -110,7 +111,7 @@ extern stCube  Cube[27];
 extern int     rotAngle;
 extern int     rotCount;
 extern int     rotX1, rotY1, rotZ1, rotX2, rotY2, rotZ2, rotX3, rotY3, rotZ3;
-extern BYTE   Z1[9], Z2[9], Z3[9], Y1[9], Y2[9], Y3[9], X1[9], X2[9], X3[9];
+extern BYTE    Z1[9], Z2[9], Z3[9], Y1[9], Y2[9], Y3[9], X1[9], X2[9], X3[9];
 extern stCube  Static_Cube[27];
 
 // 装载Bmp文件
