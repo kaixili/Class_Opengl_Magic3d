@@ -1,5 +1,6 @@
-/*
-*		Filename:   Magic2D.cpp
+/***********************************************************************************************************************
+*		Filename:   Magic3D.cpp
+					改自Magic2D.cpp
 *		Function:   Init and Creat Window and GL Program
 *				    初始化并创建Windows窗口和绘制GL图像
 *		Author:	    李开希  U201414093
@@ -7,10 +8,9 @@
 *		Time:	    2015-5
 *		Remarks:	Thanks to Jeff Molofee and his Tutorial.This Code Was First Created By Him In 2000 (Visit his Site At nehe.gamedev.net)
 *					And I Used His Code For Creating Magic2D Main Window.
-*		License:	LGPL
-*/
+************************************************************************************************************************/
 
-#include "Magic2D.h"
+#include "Magic3D.h"
 
 HDC			hDC = NULL;			// Private GDI Device Context
 HGLRC		hRC = NULL;			// Permanent Rendering Context
@@ -26,8 +26,8 @@ GLfloat		yrot;				// /
 GLfloat		zrot;				// 摄像头旋转偏移量
 
 GLboolean	ROT = TRUE;			// 镜头旋转状态
-GLint		RandomShuffle = TRUE;	// 打乱/还原状态
-int			step[MAXSTEP];		// 存储打乱步骤用于还原
+GLint		RandomShuffle = 1;	// 打乱/还原状态
+int			step[MAXSTEP][2];	// 存储打乱步骤用于还原
 int			step_count ;		// 打乱步数
 
 //GLUquadricObj *g_text;			
@@ -35,7 +35,7 @@ int			step_count ;		// 打乱步数
 GLfloat RX;						// /
 GLfloat RY;						// 摄像头平移偏移量
 
-GLuint	texture[30];			// 存储纹理
+GLuint	texture[55];			// 存储纹理
 
 GLfloat XPos;		
 GLfloat YPos;
@@ -49,23 +49,23 @@ GLvoid	 ReSizeGLScene(GLsizei width, GLsizei height);
 GLvoid	 KillGLWindow(GLvoid);
 BOOL	 CreateGLWindow(char* title, int width, int height, int bits, bool fullscreenflag);
 
+
 // 初始化GL>载入声音 文字 图片 纹理
 int InitGL(GLvoid)
 {
 	if (!LoadAllTextures()) return FALSE;
-	InitENstring();
-	Init_model();
-	char buffer10[50];
-	step_count = 0;
-	step[step_count] = 0;
+	InitENstring();										// 初始化字符显示 Text.cpp
+	Init_model();										// 初始化魔方坐标 CubeRotate.cpp
+	step_count = 0;										// 初始化栈
+	step[step_count][0] = 0;
 
-	glEnable(GL_TEXTURE_2D);							// Enable Texture Mapping ( NEW )
-	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
-	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);	 			// Black Background
-	glClearDepth(1.0f);									// Depth Buffer Setup
-	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
-	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
+	glEnable(GL_TEXTURE_2D);							// 启用2D纹理贴图
+	glShadeModel(GL_SMOOTH);							// 颜色光滑过渡
+	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);	 			// 清空绘图区域
+	glClearDepth(1.0f);									// 设置深度
+	glEnable(GL_DEPTH_TEST);							// 深度测试
+	glDepthFunc(GL_LEQUAL);								// 深度测试方式
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// 最佳质量
 	return TRUE;										
 }
 
@@ -95,7 +95,7 @@ void DrawCube(int ID, int face1, int face2, int face3, int face4, int face5, int
 	glTexCoord2f(0.0f, 1.0f); glVertex3fv(CubePoint[3].p);
 	glEnd();
 	// 前表面
-	face2 ? (glBindTexture(GL_TEXTURE_2D, texture[face2])) : (glBindTexture(GL_TEXTURE_2D, texture[0]));
+	face2 ? (glBindTexture(GL_TEXTURE_2D, texture[9 + face2])) : (glBindTexture(GL_TEXTURE_2D, texture[0]));
 	glBegin(GL_QUADS);
 	glTexCoord2f(1.0f, 0.0f); glVertex3fv(CubePoint[4].p);
 	glTexCoord2f(1.0f, 1.0f); glVertex3fv(CubePoint[5].p);
@@ -103,7 +103,7 @@ void DrawCube(int ID, int face1, int face2, int face3, int face4, int face5, int
 	glTexCoord2f(0.0f, 0.0f); glVertex3fv(CubePoint[7].p);
 	glEnd();
 	// 上表面
-	face3? (glBindTexture(GL_TEXTURE_2D, texture[face3])) : (glBindTexture(GL_TEXTURE_2D, texture[0]));
+	face3? (glBindTexture(GL_TEXTURE_2D, texture[18 + face3])) : (glBindTexture(GL_TEXTURE_2D, texture[0]));
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 1.0f); glVertex3fv(CubePoint[5].p);
 	glTexCoord2f(0.0f, 0.0f); glVertex3fv(CubePoint[3].p);
@@ -111,7 +111,7 @@ void DrawCube(int ID, int face1, int face2, int face3, int face4, int face5, int
 	glTexCoord2f(1.0f, 1.0f); glVertex3fv(CubePoint[6].p);
 	glEnd();
 	// 下表面	
-	face4?glBindTexture(GL_TEXTURE_2D, texture[face4]) :(glBindTexture(GL_TEXTURE_2D, texture[0]));
+	face4?glBindTexture(GL_TEXTURE_2D, texture[27 + face4]) :(glBindTexture(GL_TEXTURE_2D, texture[0]));
 	glBegin(GL_QUADS);
 	glTexCoord2f(1.0f, 1.0f); glVertex3fv(CubePoint[4].p);
 	glTexCoord2f(0.0f, 1.0f); glVertex3fv(CubePoint[7].p);
@@ -119,7 +119,7 @@ void DrawCube(int ID, int face1, int face2, int face3, int face4, int face5, int
 	glTexCoord2f(1.0f, 0.0f); glVertex3fv(CubePoint[0].p);
 	glEnd();
 	// 左表面
-	face5 ? glBindTexture(GL_TEXTURE_2D, texture[face5]) : (glBindTexture(GL_TEXTURE_2D, texture[0]));;
+	face5 ? glBindTexture(GL_TEXTURE_2D, texture[36 + face5]) : (glBindTexture(GL_TEXTURE_2D, texture[0]));;
 	glBegin(GL_QUADS);
 	glTexCoord2f(1.0f, 0.0f); glVertex3fv(CubePoint[7].p);
 	glTexCoord2f(1.0f, 1.0f); glVertex3fv(CubePoint[6].p);
@@ -127,7 +127,7 @@ void DrawCube(int ID, int face1, int face2, int face3, int face4, int face5, int
 	glTexCoord2f(0.0f, 0.0f); glVertex3fv(CubePoint[1].p);
 	glEnd();
 	// 右表面
-	face6 ? glBindTexture(GL_TEXTURE_2D, texture[face6]) : (glBindTexture(GL_TEXTURE_2D, texture[0]));;
+	face6 ? glBindTexture(GL_TEXTURE_2D, texture[45 + face6]) : (glBindTexture(GL_TEXTURE_2D, texture[0]));;
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex3fv(CubePoint[4].p);
 	glTexCoord2f(1.0f, 0.0f); glVertex3fv(CubePoint[0].p);
@@ -139,19 +139,21 @@ void DrawCube(int ID, int face1, int face2, int face3, int face4, int face5, int
 void DrawBackground()
 {
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glTranslatef(0.0f, 0.0f, -18.0f);
+
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f); glVertex2f(-18.6f, -18.6f);
 	glTexCoord2f(1.0f, 0.0f); glVertex2f(18.6f, -18.6f);
 	glTexCoord2f(1.0f, 1.0f); glVertex2f(18.6f, 18.6f);
 	glTexCoord2f(0.0f, 1.0f); glVertex2f(-18.6f, 18.6f);
 	glEnd();
-	//
+
+	glTranslatef(0.0f, 0.0f, 18.0f);
 }
 
 // 绘制GL主程序
 int DrawGLScene(GLvoid)				
 {
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 	glLoadIdentity();										//重置视野位置
 	glTranslatef(0.0f, 0.0f, -12.0f);
@@ -159,7 +161,7 @@ int DrawGLScene(GLvoid)
 	selectFont(36, ANSI_CHARSET, "MS Gothic");
 	glColor3f(0.914f, 0.251f, 0.365f);
 	glRasterPos2f(-6.4f, 3.2f);
-	drawCNString("基于OpenGL的2d魔方");
+	drawCNString("基于OpenGL的3d魔方");
 	selectFont(32, ANSI_CHARSET, "DFKai-SB");
 	glColor3f(1.0f, 1.0f, 1.0f);
 	glRasterPos2f(-6.2f, 2.75f);
@@ -171,71 +173,61 @@ int DrawGLScene(GLvoid)
 
 	selectFont(36, ANSI_CHARSET, "Trebuchet MS"); 
 	glRasterPos2f(-5.2f, 1.60f);
-	if (RandomShuffle == 1)  drawCNString("随机打乱中");
+	if (RandomShuffle == 1)  drawCNString("随机打乱中 按F2还原");
 	if (RandomShuffle == 0)  drawCNString("正在还原");
 	if (RandomShuffle == -1) drawCNString("按F3继续旋转");
 	
-	/*		// 用作DeBug
-	char buffer1[50], buffer2[50], buffer3[50], buffer4[50], buffer5[50], buffer6[50], buffer7[50], buffer8[70], buffer9[50], buffer10[50];
-	glRasterPos2f(-5.2f,-2.00f); drawCNString(buffer9);*/
-	
-//
 	glColor3f(1, 1, 1);										// 关闭glClolor的颜色状态
+
+	/*														// 用作DeBug
+	glRasterPos2f(-5.2f, 1.20f);
+	char buffer[50];										
+	sprintf(buffer, "%d,%d,%d", rotAngle, RandomShuffle, rotYP || rotZP || rotXM || rotYM || rotZM || rotXP);
+	drawCNString(buffer);*/
+
+	DrawBackground();
 	
 	glTranslatef(0.0f, 0.0f, -12.0f);
-
-	glTranslatef(0.0f, 0.0f, -6.0f);
-	DrawBackground();
-	glTranslatef(0.0f, 0.0f, 6.0f);
-
-	glTranslatef(RX, 0.0f, 0.0f);							// 旋转平移视角
-	glTranslatef(0.0, RY, 0.0);
-
+	glTranslatef(RX, RY, 0.0f);							// 旋转平移视角
 	glRotatef(xrot, 1.0f, 0.0f, 0.0f);
 	glRotatef(yrot, 0.0f, 1.0f, 0.0f);
 	glRotatef(zrot, 0.0f, 0.0f, 1.0f);
-	
-								// 绘制魔方体
-	
-	DrawCube( 0, 0, 7, 0, 1, 27, 27);
-	DrawCube( 1, 0, 8, 0, 2, 1, 1);
-	DrawCube( 2, 0, 9, 0, 3, 2, 2);
-	DrawCube( 3, 0, 5, 0, 0, 3, 3);
-	DrawCube( 4, 0, 6, 0, 0, 4, 4);
-	DrawCube( 5, 0, 7, 0, 0, 5, 5);
-	DrawCube( 6, 0, 1, 7, 0, 3, 3);
-	DrawCube( 7, 0, 2, 8, 0, 7, 7);
-	DrawCube( 8, 0, 3, 9, 0, 8, 8);
 
-	DrawCube( 9, 0, 0, 0, 4, 9, 9);
-	DrawCube(10, 0, 0, 0, 5,10,10);
-	DrawCube(11, 0, 0, 0, 6,11,11);
-	DrawCube(12, 0, 0, 0, 0,12,12);
-	DrawCube(13, 0, 0, 0, 0,13,13);
-	DrawCube(14, 0, 0, 0, 0,14,14);
-	DrawCube(15, 0, 0, 4, 0, 2, 2);
-	DrawCube(16, 0, 0, 5, 0,16,16);
-	DrawCube(17, 0, 0, 6, 0,17,17);
+	DrawCube( 0, 7, 0, 0, 9, 0,  9);
+	DrawCube( 1, 8, 0, 0, 8, 0,  0);
+	DrawCube( 2, 9, 0, 0, 7, 7,  0);
+	DrawCube( 3, 4, 0, 0, 0, 0,  6);
+	DrawCube( 4, 5, 0, 0, 0, 0,  0);
+	DrawCube( 5, 6, 0, 0, 0, 4,  0);
+	DrawCube( 6, 1, 0, 7, 0, 0,  3);
+	DrawCube( 7, 2, 0, 8, 0, 0,  0);
+	DrawCube( 8, 3, 0, 9, 0, 1,  0);
 
-	DrawCube(18, 9, 0, 0, 7,18,18);
-	DrawCube(19, 8, 0, 0, 8,19,19);
-	DrawCube(20, 7, 0, 0, 9,20,20);
-	DrawCube(21, 6, 0, 0, 0,21,21);
-	DrawCube(22, 5, 0, 0, 0,22,22);
-	DrawCube(23, 4, 0, 0, 0,23,23);
-	DrawCube(24, 3, 0, 1, 0, 1, 1);
-	DrawCube(25, 2, 0, 2, 0,25,25);
-	DrawCube(26, 1, 0, 3, 0,26,26);
-	
-	
-	//
-	
+	DrawCube( 9, 0, 0, 0, 6,  0, 8);
+	DrawCube(10, 0, 0, 0, 5,  0, 0);
+	DrawCube(11, 0, 0, 0, 4,  8, 0);
+	DrawCube(12, 0, 0, 0, 0,  0, 5);
+	DrawCube(13, 0, 0, 0, 0,  0, 0);
+	DrawCube(14, 0, 0, 0, 0,  5, 0);
+	DrawCube(15, 0, 0, 4, 0,  0, 2);
+	DrawCube(16, 0, 0, 5, 0,  0, 0);
+	DrawCube(17, 0, 0, 6, 0,  2, 0);
 
+	DrawCube(18, 0, 9, 0, 3,  0, 7);
+	DrawCube(19, 0, 8, 0, 2,  0, 0);
+	DrawCube(20, 0, 7, 0, 1,  9, 0);
+	DrawCube(21, 0, 6, 0, 0,  0, 4);
+	DrawCube(22, 0, 5, 0, 0,  0, 0);
+	DrawCube(23, 0, 4, 0, 0,  6, 0);
+	DrawCube(24, 0, 3, 1, 0,  0, 1);
+	DrawCube(25, 0, 2, 2, 0,  0, 0);
+	DrawCube(26, 0, 1, 3, 0,  3, 0);
+	
 	if (ROT)
 	{
-		xrot += 0.20f;
-		yrot += 0.10f;
-		zrot += 0.20f;
+		xrot += 0.40f;
+		yrot += 0.35f;
+		zrot += 0.35f;
 	}
 	return TRUE;										
 }
@@ -457,7 +449,6 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 	ReSizeGLScene(width, height);					// Set Up Our Perspective GL Screen
 
 
-
 	if (!InitGL())									// Initialize Our Newly Created GL Window
 	{
 		KillGLWindow();								// Reset The Display
@@ -503,8 +494,6 @@ LRESULT CALLBACK WndProc(
 		}
 		break;									// Exit
 	}
-	
-	
 
 	/*打算做鼠标拖动视野*/
 	/*case WM_LBUTTONDOWN:
@@ -585,80 +574,9 @@ VOID CALLBACK TimerShuffle(
 	if ((idEvent == 2) && (RandomShuffle == 1))
 	{
 		srand(dwTime);
-		int  r = rand();
-
-		if (r % 18 == 0)
-		{
-			enable_X1_roatate(1);
-		}
-		else if (r % 18 == 1)
-		{
-			enable_Y1_roatate(1);
-		}
-		else if (r % 18 == 2)
-		{
-			enable_Z1_roatate(1);
-		}
-		else if (r % 18 == 3)
-		{
-			enable_X1_roatate(-1);
-		}
-		else if (r % 18 == 4)
-		{
-			enable_Y1_roatate(-1);
-		}
-		else if (r % 18 == 5)
-		{
-			enable_Z1_roatate(-1);
-		}
-		else if (r % 18 == 6)
-		{
-			enable_X2_roatate(1);
-		}
-		else if (r % 18 == 7)
-		{
-			enable_Y2_roatate(1);
-		}
-		else if (r % 18 == 8)
-		{
-			enable_Z2_roatate(1);
-		}
-		else if (r % 18 == 9)
-		{
-			enable_X2_roatate(-1);
-		}
-		else if (r % 18 == 10)
-		{
-			enable_Y2_roatate(-1);
-		}
-		else if (r % 18== 11)
-		{
-			enable_Z2_roatate(-1);
-		}
-		else if (r % 18 == 12)
-		{
-			enable_X3_roatate(1);
-		}
-		else if (r % 18 == 13)
-		{
-			enable_Y3_roatate(1);
-		}
-		else if (r % 18 == 14)
-		{
-			enable_Z3_roatate(1);
-		}
-		else if (r % 18 == 15)
-		{
-			enable_X3_roatate(-1);
-		}
-		else if (r % 18 == 16)
-		{
-			enable_Y3_roatate(-1);
-		}
-		else if (r % 18== 17)
-		{
-			enable_Z3_roatate(-1);
-		}
+		Enable_Roatate(rand() % 9,		//随机旋转面
+			(rand() % 2) * 2 - 1,		//随机方向(-1或1)
+			1);							//每次旋转角度为1度
 	}
 }
 
@@ -674,68 +592,15 @@ VOID CALLBACK TimeRestore(
 	if (RandomShuffle == 1) return;
 	if ((idEvent == 3) && (RandomShuffle == 0))
 	{
-		switch (step[step_count - 1])
+		switch (step[step_count - 1][0])
 		{
-
-		case X1_ROTATE_L:
-			enable_X1_roatate(-1);
-			break;
-		case X1_ROTATE_R:
-			enable_X1_roatate(1);
-			break;
-		case Y1_ROTATE_L:
-			enable_Y1_roatate(-1);
-			break;
-		case Y1_ROTATE_R:
-			enable_Y1_roatate(1);
-			break;
-		case Z1_ROTATE_L:
-			enable_Z1_roatate(-1);
-			break;
-		case Z1_ROTATE_R:
-			enable_Z1_roatate(1);
-			break;
-		case X2_ROTATE_L:
-			enable_X2_roatate(-1);
-			break;
-		case X2_ROTATE_R:
-			enable_X2_roatate(1);
-			break;
-		case Y2_ROTATE_L:
-			enable_Y2_roatate(-1);
-			break;
-		case Y2_ROTATE_R:
-			enable_Y2_roatate(1);
-			break;
-		case Z2_ROTATE_L:
-			enable_Z2_roatate(-1);
-			break;
-		case Z2_ROTATE_R:
-			enable_Z2_roatate(1);
-			break;
-		case X3_ROTATE_L:
-			enable_X3_roatate(-1);
-			break;
-		case X3_ROTATE_R:
-			enable_X3_roatate(1);
-			break;
-		case Y3_ROTATE_L:
-			enable_Y3_roatate(-1);
-			break;
-		case Y3_ROTATE_R:
-			enable_Y3_roatate(1);
-			break;
-		case Z3_ROTATE_L:
-			enable_Z3_roatate(-1);
-			break;
-		case Z3_ROTATE_R:
-			enable_Z3_roatate(1);
-			break;
+		case Z1:case Z2:case Z3:case Y1:case Y2:case Y3: case X1:case X2:case X3:
+			Enable_Roatate(step[step_count - 1][0], - step[step_count - 1][1], 3); break;//根据栈中的步骤反向转动模仿
 		default:
 			if (RandomShuffle == 0)
 			{
 				RandomShuffle = -1;
-				if (!fullscreen)
+				if (!fullscreen)			//全屏不启用对话框
 				{
 					if (MessageBox(NULL, TEXT("魔方已成功还原\n是否继续旋转?"), TEXT("Magic 2D Info"), MB_ICONINFORMATION | MB_YESNO) == IDYES)
 					{
@@ -765,11 +630,12 @@ int WINAPI WinMain(
 	MSG		msg;									// Windows Message 结构
 	BOOL	done = FALSE;							// 运行状态
 	
-	MessageBox(NULL, TEXT("题目：基于OpenGL的3D旋转魔方实现\n作者：李开希U201414093\n班级：集成1401\n\n按F1启动帮助\n按F2启动还原\n按F11在窗口全屏中切换\n按F4开启关闭旋转镜头\n按上下左右移动魔方\n使用WASD移动镜头角度"),
-		TEXT("Magic 2D Info"), MB_ICONINFORMATION | MB_OK);
+	MessageBox(NULL, 
+		TEXT("题目：基于OpenGL的3D旋转魔方实现\n作者：李开希U201414093\n班级：集成1401\n\n按F1启动帮助\n按F2启动还原\n按F11在窗口全屏中切换\n按F4开启关闭旋转镜头\n按上下左右移动魔方\n使用WASD移动镜头角度"),
+		TEXT("Magic 3D Info"), MB_ICONINFORMATION | MB_OK);
 	
 
-	if (!CreateGLWindow("3D MagicCube By 李开希", 1024, 768, 16, fullscreen))
+	if (!CreateGLWindow("3D MagicCube By 李开希", 1024, 768, 32, fullscreen))
 	{
 		return 0;									
 	}
@@ -805,69 +671,19 @@ int WINAPI WinMain(
 				SwapBuffers(hDC);					// 绘制到屏幕
 			}
 
-			if (keys[VK_LEFT])
-			{
+			if (keys[VK_LEFT])	{ RX -= 0.05f; }
+			if (keys[VK_RIGHT])	{ RX += 0.05f; }
+			if (keys[VK_UP])	{ RY += 0.05f; }
+			if (keys[VK_DOWN])	{ RY -= 0.05f; }
+			if (keys[KEY_W])	{ ROT = FALSE; zrot *= 0.95f; xrot += 0.75f; }
+			if (keys[KEY_S])	{ ROT = FALSE; zrot *= 0.95f; xrot -= 0.75f; }
+			if (keys[KEY_A])	{ ROT = FALSE; zrot *= 0.95f; yrot -= 0.75f; }
+			if (keys[KEY_D])	{ ROT = FALSE; zrot *= 0.95f; yrot += 0.75f; }
 
-				RX -= 0.05f;
-			}
-
-			if (keys[VK_RIGHT])
+			if (keys[VK_F1] && !fullscreen)
 			{
-
-				RX += 0.05f;
-			}
-			
-			if (keys[VK_F6])
-			{
-				enable_Z1_roatate(-1);
-				
-			}
-			if (keys[VK_F7])
-			{
-				enable_Z2_roatate(-1);
-
-			}
-			if (keys[VK_F8])
-			{
-				enable_Z3_roatate(-1);
-
-			}
-
-			if (keys[VK_UP])
-			{
-				RY += 0.05f;
-			}
-
-			if (keys[VK_DOWN])
-			{
-				RY -= 0.05f;
-
-			}
-
-			if (keys[KEY_W])
-			{
-				ROT = FALSE;
-				xrot += 1.00f;
-			}
-			if (keys[KEY_S])
-			{
-				ROT = FALSE;
-				xrot -= 1.00f;
-			}
-			if (keys[KEY_A])
-			{
-				ROT = FALSE;
-				yrot += 1.00f;
-			}
-			if (keys[KEY_D])
-			{
-				ROT = FALSE;
-				xrot -= 1.00f;
-			}
-
-			if (keys[VK_F1])
-			{
-				MessageBox(NULL, TEXT("题目：基于OpenGL的3D旋转魔方实现\n作者：李开希U201414093\n班级：集成1401\n\n按F1启动帮助\n按F2启动还原\n按F11在窗口全屏中切换\n按F4开启关闭旋转镜头\n按上下左右移动魔方\n使用WASD移动镜头角度"),
+				MessageBox(NULL, 
+					TEXT("题目：基于OpenGL的3D旋转魔方实现\n作者：李开希U201414093\n班级：集成1401\n\n按F1启动帮助\n按F2启动还原\n按F11在窗口全屏中切换\n按F4开启关闭旋转镜头\n按上下左右移动魔方\n使用WASD移动镜头角度"),
 					TEXT("About"), MB_ICONINFORMATION | MB_OK);
 				keys[VK_F1] = FALSE;
 			}
@@ -875,8 +691,8 @@ int WINAPI WinMain(
 			if (keys[VK_F2] && (RandomShuffle == 1))		// 关闭自动打乱,启动还原
 			{
 				keys[VK_F2] = FALSE;
-				if (!(rotAngle))//判断是否还在旋转
-					RandomShuffle = 0;
+				if (rotFace == -1)//判断是否还在旋转
+					RandomShuffle = FALSE;
 			}
 
 			if (keys[VK_F3] && ( RandomShuffle == -1))		// 启动自动打乱
@@ -888,19 +704,18 @@ int WINAPI WinMain(
 			if (keys[VK_F4])								// 关闭自动旋转视野
 			{
 				keys[VK_F4] = FALSE;
-
 				ROT ? (ROT = FALSE) : (ROT = TRUE);
-				
 			}
 			
 			if (keys[VK_F11])								// 改变全屏/窗口显示
 			{
 				keys[VK_F11] = FALSE;
-				if (!(rotAngle))
+				if (rotFace == -1)
 				{
 					KillGLWindow();
 					fullscreen = !fullscreen;
-					if (!CreateGLWindow("3D MagicCube By 李开希", 1024, 768, 16, fullscreen))
+					if (!CreateGLWindow("3D MagicCube By 李开希", 
+						::GetSystemMetrics(SM_CXSCREEN), ::GetSystemMetrics(SM_CYSCREEN), 32, fullscreen))
 					{
 						return 0;
 					}
@@ -909,37 +724,14 @@ int WINAPI WinMain(
 					::SetTimer(hWnd, 3, 100, TimeRestore);
 				}
 			}
-			
 		}
 		
-		if (rotAngle != 0)													// 根据选装状态,绘制旋转动画
+		if (rotFace != -1)													// 根据选装状态,绘制旋转动画
 		{
 			if (RandomShuffle)
-			{
-				if (rotZ1)	Rotate_Z1();
-				if (rotY1)	Rotate_Y1();
-				if (rotX1)	Rotate_X1();
-				if (rotZ2)	Rotate_Z2();
-				if (rotY2)	Rotate_Y2();
-				if (rotX2)	Rotate_X2();
-				if (rotZ3)	Rotate_Z3();
-				if (rotY3)	Rotate_Y3();
-				if (rotX3)	Rotate_X3();
-			}
-			if (!RandomShuffle)
-			{
-				if (rotZ1)	Restore_Z1();
-				if (rotY1)	Restore_Y1();
-				if (rotX1)	Restore_X1();
-				if (rotZ2)	Restore_Z2();
-				if (rotY2)	Restore_Y2();
-				if (rotX2)	Restore_X2();
-				if (rotZ3)	Restore_Z3();
-				if (rotY3)	Restore_Y3();
-				if (rotX3)	Restore_X3();
-
-			}
-			
+				Rotate_Surface();
+			else
+				Restore_Surface();
 		}
 	}
 

@@ -4,10 +4,9 @@
 *		Author:	    李开希  U201414093
 *				    华中科技大学 集成1401
 *		Time:	    2015-5
-*		License:	LGPL
 */
 
-#include"Magic2D.h"
+#include"Magic3D.h"
 GLuint		lists;		//存储英文字符纹理的初始编号
 
 int InitENstring()

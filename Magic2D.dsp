@@ -100,19 +100,11 @@ SOURCE=.\Image.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Magic2D.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Sound.cpp
+SOURCE=.\Magic3D.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\Text.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Utils.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -120,7 +112,7 @@ SOURCE=.\Utils.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\Magic2D.h
+SOURCE=.\Magic3D.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

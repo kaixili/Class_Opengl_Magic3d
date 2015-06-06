@@ -132,13 +132,13 @@
   <ItemGroup>
     <ClCompile Include="CubeRotate.cpp" />
     <ClCompile Include="Image.cpp" />
-    <ClCompile Include="Magic2D.cpp" />
+    <ClCompile Include="Magic3D.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Magic2D.h" />
+    <ClInclude Include="Magic3D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
