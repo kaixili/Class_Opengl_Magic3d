@@ -10,6 +10,7 @@
 #include <mmsystem.h>		// ÓÃÓÚ²¥·ÅÉùÒô
 #pragma comment(lib, "WINMM.LIB")
 
+
 #define  PI2 6.2831853f 
 #define  PI  3.1415926f 
 #define  RIGHTANGLE 90
